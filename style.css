@@ -1,0 +1,547 @@
+/* --- 1. CORE VARIABLES & SETUP --- */
+:root {
+    --bg-dark: #0a0a0a;
+    --text-light: #f5f5f5;
+    --text-muted: #888888;
+    --accent-line: #333333;
+    --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif; /* Adds an elegant touch to quotes */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    /* The Mixed Color Gradient */
+    background: linear-gradient(-45deg, #050505, #111827, #0f172a, #0a0a0a);
+    background-size: 400% 400%;
+    
+    /* The Animation (points to the keyframes we will add next) */
+    animation: breathingBackground 15s ease infinite;
+    
+    /* Keeps the background locked in place while you scroll */
+    background-attachment: fixed; 
+    
+    color: var(--text-light);
+    font-family: var(--font-main);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+/* --- 2. MINIMALIST NAVIGATION --- */
+.site-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 5%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0) 100%);
+    backdrop-filter: blur(5px);
+}
+
+.logo {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 3rem;
+}
+
+.nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.4s ease;
+}
+
+.nav-links a:hover {
+    color: var(--text-muted);
+}
+
+/* --- 3. MASSIVE TYPOGRAPHY HERO (SPLIT LAYOUT) --- */
+/* --- 3. MASSIVE TYPOGRAPHY HERO (SPLIT LAYOUT) --- */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5%;
+    border-bottom: 1px solid var(--accent-line);
+    
+    /* CRUCIAL: These keep the video trapped inside the header */
+    position: relative; 
+    overflow: hidden; 
+}
+
+/* The Video Styling */
+.hero-bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Acts like background-size: cover */
+    z-index: -2; /* Pushes it all the way to the back */
+}
+
+/* The Dark Overlay */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 10, 10, 0.4); /* Adjust the 0.7 to make it darker/lighter */
+    z-index: -1; /* Sits between the video and your text */
+}
+
+.hero-wrapper {
+    /* Keep your existing hero-wrapper code exactly as it is */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1400px;
+    gap: 4rem;
+    margin-top: 4rem;
+    position: relative; /* Ensures this content sits on top of the overlay */
+    z-index: 1;
+}
+
+/* ... Keep the rest of your hero CSS (.hero-content, .massive-text, etc.) exactly the same! */
+
+.hero-content {
+    flex: 1; /* Takes up half the space */
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.massive-text {
+    font-size: clamp(4rem, 8vw, 8rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -2px;
+    margin-bottom: 2rem;
+}
+
+.description {
+    font-size: 1.2rem;
+    max-width: 500px;
+    color: var(--text-muted);
+}
+
+.hero-image-container {
+    flex: 1; /* Takes up the other half */
+    display: flex;
+    justify-content: flex-end; /* Pushes the image to the far right */
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 450px;
+    aspect-ratio: 3 / 4; /* Gives the photo a classic portrait crop */
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    filter: grayscale(100%) contrast(1.1); /* Cinematic black & white by default */
+    transition: filter 0.6s ease, transform 0.6s ease;
+}
+
+.hero-image:hover {
+    filter: grayscale(0%) contrast(1); /* Reveals full color on hover */
+    transform: scale(0.98); /* Slight press effect */
+}
+
+/* Mobile Responsiveness for Hero Section */
+@media (max-width: 900px) {
+    .hero-wrapper {
+        flex-direction: column-reverse; /* Stacks image on top of text on small screens */
+        text-align: center;
+        margin-top: 8rem;
+    }
+    
+    .hero-image-container {
+        justify-content: center;
+    }
+    
+    .description {
+        margin: 0 auto; /* Centers the description text on mobile */
+    }
+}/* --- 4. THE "WORK" GALLERY (GRID) --- */
+.work-section {
+    padding: 10rem 5%;
+    border-bottom: 1px solid var(--accent-line);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 5rem;
+}
+
+.section-header h2 {
+    font-size: 3rem;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+/* The Profile Image opposite the header */
+/* The Profile Image opposite the header */
+.header-profile-img {
+    width: 120px;  /* Equal width... */
+    height: 120px; /* ...and equal height */
+    border-radius: 50%; /* This is the magic line that makes it a perfect circle */
+    background-size: cover;
+    background-position: center;
+    border: 2px solid var(--accent-line); /* Made the border slightly thicker for the circle */
+    filter: grayscale(100%) contrast(1.1);
+    transition: filter 0.5s ease, transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.header-profile-img:hover {
+    filter: grayscale(0%) contrast(1);
+    transform: scale(1.05); /* Slightly bigger pop on hover */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 4rem;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.image-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Cinematic widescreen ratio */
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover .image-placeholder {
+    transform: scale(0.98); /* Subtle premium press effect */
+}
+
+.project-card h3 {
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+    margin-top: 1rem;
+}
+
+.project-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* --- 5. ARTISTIC PROCESS SECTION --- */
+.about-section {
+    padding: 15rem 5%;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--accent-line);
+}
+
+.about-content {
+    max-width: 900px;
+    text-align: center;
+}
+
+.about-content h2 {
+    font-size: 3rem;
+    margin-bottom: 4rem;
+}
+
+.large-paragraph {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    line-height: 1.4;
+    color: var(--text-muted);
+    margin-bottom: 5rem;
+}
+
+.quote {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-style: italic;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* --- 6. THE CLIMAX: CONTACT FORM --- */
+.contact-section {
+    padding: 10rem 5%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 5rem;
+}
+
+.contact-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+@media (max-width: 768px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+.minimal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-top: 1rem;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--accent-line);
+    padding: 1rem 0;
+    color: var(--text-light);
+    font-size: 1rem;
+    font-family: var(--font-main);
+    letter-spacing: 1px;
+    transition: border-color 0.4s ease;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-bottom-color: var(--text-light);
+}
+
+.input-group textarea {
+    resize: none;
+    height: 50px;
+}
+
+.submit-btn {
+    align-self: flex-start;
+    background: transparent;
+    color: var(--text-light);
+    border: 1px solid var(--text-light);
+    padding: 1rem 3rem;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.submit-btn:hover {
+    background: var(--text-light);
+    color: var(--bg-dark);
+}
+
+/* --- 7. FOOTER --- */
+.site-footer {
+    padding: 2rem 5%;
+    border-top: 1px solid var(--accent-line);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.social-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.social-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.4s ease;
+}
+
+.social-links a:hover {
+    color: var(--text-light);
+}
+/* --- 8. DUAL IDENTITY (50/50 SPLIT) --- */
+.split-section {
+    display: flex;
+    min-height: 80vh;
+    border-bottom: 1px solid var(--accent-line);
+}
+
+.split-side {
+    flex: 1; /* Makes them take up exactly 50% each */
+    padding: 8rem 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    transition: background-color 0.4s ease;
+}
+
+/* Adds a subtle border between the two halves */
+.code-side {
+    border-right: 1px solid var(--accent-line);
+}
+
+.code-side:hover {
+    background-color: #0f1215; /* Subtle dark blue tint on hover */
+}
+
+.video-side:hover {
+    background-color: #15110f; /* Subtle dark warm tint on hover */
+}
+
+.side-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    display: block;
+}
+
+.split-side h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: -1px;
+    margin-bottom: 1.5rem;
+    line-height: 1;
+}
+
+.split-side p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 400px;
+    margin-bottom: 2rem;
+}
+
+.tech-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--text-light);
+    font-family: monospace; /* Gives it a technical/script look */
+    font-size: 0.9rem;
+}
+
+/* --- 9. PHOTOGRAPHY GALLERY --- */
+/* --- 9. PHOTOGRAPHY GALLERY (Updated for size & color) --- */
+.gallery-section {
+    padding: 8rem 5%;
+    border-bottom: 1px solid var(--accent-line);
+}
+
+.gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+}
+
+.gallery-header h2 {
+    font-size: 2rem;
+    letter-spacing: -1px;
+}
+
+.ig-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.ig-link:hover {
+    color: var(--text-light);
+}
+
+.photo-grid {
+    display: grid;
+    /* CHANGE: Increased minimum width from 250px to 300px. This makes the images much larger. */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 1.5rem; /* Slightly larger gap to give the bigger photos room to breathe */
+}
+
+.photo-item {
+    width: 100%;
+    /* CHANGE: Classic vertical photography ratio */
+    aspect-ratio: 3 / 4; 
+    
+    background-color: #1a1a1a;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid var(--accent-line);
+    
+    /* Full color by default, no grayscale filter */
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+    cursor: pointer;
+}
+
+.photo-item:hover {
+    transform: scale(1.03); 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 10;
+}
+/* Mobile Responsiveness for the Split Section */
+@media (max-width: 900px) {
+    .split-section {
+        flex-direction: column;
+    }
+    .code-side {
+        border-right: none;
+        border-bottom: 1px solid var(--accent-line);
+    }
+}
+/* --- 10. BACKGROUND ANIMATION --- */
+@keyframes breathingBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
