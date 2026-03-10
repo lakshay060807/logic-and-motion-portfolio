@@ -1,8 +1,7 @@
 const { MongoClient } = require('mongodb');
 
-// Use the variable you saved in Vercel Settings
-const uri = process.env.MONGODB_URI;
-const client = new MongoClient(uri);
+// Create a single client instance outside the handler
+const client = new MongoClient(process.env.MONGODB_URI);
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -10,18 +9,25 @@ export default async function handler(req, res) {
     }
 
     try {
+        // Force the connection to happen immediately
         await client.connect();
-        const database = client.db('portfolio'); 
-        const collection = database.collection('inquiries');
         
-        await collection.insertOne(req.body);
-        
+        const db = client.db("portfolio"); 
+        const collection = db.collection("inquiries");
+
+        await collection.insertOne({
+            name: req.body.name,
+            email: req.body.email,
+            message: req.body.message,
+            timestamp: new Date()
+        });
+
         return res.status(200).json({ message: 'Success' });
     } catch (error) {
-        // This line is key! It tells us WHY it failed in the Vercel Logs
-        console.error("MONGODB_ERROR_DETAILS:", error.message);
-        return res.status(500).json({ error: 'Server failed to connect to Database' });
+        console.error("MONGODB_ERROR_LOG:", error.message);
+        return res.status(500).json({ error: error.message });
     } finally {
+        // In serverless, we close the connection to prevent hanging
         await client.close();
     }
 }
