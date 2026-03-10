@@ -114,7 +114,22 @@ body {
 /* ... Keep the rest of your hero CSS (.hero-content, .massive-text, etc.) exactly the same! */
 
 .hero-content {
-    flex: 1; /* Takes up half the space */
+    position: absolute;
+    top: 50%;
+    left: 10%; /* Moves it away from the edge */
+    transform: translateY(-50%);
+    width: auto; /* Allows it to grow horizontally */
+    max-width: 600px; /* Prevents it from getting TOO wide on big screens */
+    text-align: left;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: clamp(3rem, 10vw, 6rem); /* Responsive font size */
+    line-height: 1;
+    margin: 0;
+    color: white;
+    text-transform: uppercase;
 }
 
 .subtitle {
