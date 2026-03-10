@@ -2,8 +2,7 @@ const { MongoClient } = require('mongodb');
 
 // Replace this with your actual Connection String from MongoDB Atlas later
 const uri = process.env.MONGODB_URI; 
-const client = new MongoClient(uri);
-
+const client = new MongoClient(process.env.MONGODB_URI);
 export default async function handler(req, res) {
     if (req.method === 'POST') {
         try {
