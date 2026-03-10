@@ -544,8 +544,3 @@ body {
         background-position: 0% 50%;
     }
 }
-@media (max-width: 768px) {
-  video {
-    object-position: center; /* Or try 'left' or 'right' depending on where the action is */
-  }
-}
