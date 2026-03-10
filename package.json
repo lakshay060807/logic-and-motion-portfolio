@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
   "version": "1.0.0",
-  "description": "",
+  "description": "A cinematic, typography-driven portfolio developed as part of my first-year BSc AIML coursework. This project demonstrates the integration of a minimalist frontend with a functional Node.js backend and MongoDB database.",
   "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,5 +17,13 @@
     "express": "^5.2.1",
     "mongodb": "^7.1.0",
     "mongoose": "^9.2.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lakshay060807/logic-and-motion-portfolio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lakshay060807/logic-and-motion-portfolio/issues"
+  },
+  "homepage": "https://github.com/lakshay060807/logic-and-motion-portfolio#readme"
 }
