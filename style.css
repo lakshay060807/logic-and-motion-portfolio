@@ -91,15 +91,14 @@ body {
 
 /* The Video Styling */
 .hero-bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Acts like background-size: cover */
-    z-index: -2; /* Pushes it all the way to the back */
+    width: 100vw;
+  height: 100vh;
+  object-fit: cover; /* This is the magic line! */
+  position: fixed;   /* Keeps it from moving when you scroll */
+  top: 0;
+  left: 0;
+  z-index: -1;       /* Puts it behind your text */
 }
-
 /* The Dark Overlay */
 .hero-overlay {
     position: absolute;
@@ -544,4 +543,9 @@ body {
     100% {
         background-position: 0% 50%;
     }
+}
+@media (max-width: 768px) {
+  video {
+    object-position: center; /* Or try 'left' or 'right' depending on where the action is */
+  }
 }
