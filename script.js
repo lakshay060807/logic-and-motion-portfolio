@@ -18,30 +18,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // Make sure 'contact-form' matches the ID in your HTML exactly!
     const contactForm = document.getElementById('contact-form'); 
 
-    if (contactForm) {
+   if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // Get values inside the click event
+            // ADD THIS LINE HERE:
+            console.log("🚀 Submit button was definitely clicked!"); 
+
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
             try {
+                console.log("Attempting to send to Firestore...");
                 await addDoc(collection(db, "inquiries"), {
-                    name,
-                    email,
-                    message,
+                    name: name,
+                    email: email,
+                    message: message,
                     timestamp: new Date()
                 });
-                alert("Connection Initiated! Data sent to Firestore.");
+                alert("Connection Initiated! Data sent to the cloud.");
                 contactForm.reset();
             } catch (error) {
-                console.error("Firebase Error:", error);
-                alert("Error sending message.");
-            }
-        });
-    } else {
-        console.error("Could not find element with ID 'contact-form'. Check your HTML!");
-    }
-});
+                // This will catch the 'Blocked' error specifically
+                console.error("🔥 Firebase Error caught:", error);
+                alert("The network is blocking the connection. Try a Mobile Hotspot!");
+            }}); // Closes the addEventListener
+    } // Closes the 'if (contactForm)' block
+}); // Closes the 'DOMContentLoaded' block
