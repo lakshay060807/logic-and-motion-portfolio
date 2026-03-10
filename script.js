@@ -15,7 +15,7 @@
 
     try {
         // Shoot the data over to your local Node.js server
-        const response = await fetch('http://localhost:5000/api/contact', {
+        const response = await fetch('/api/contact', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
