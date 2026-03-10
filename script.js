@@ -1,48 +1,44 @@
-  document.getElementById('contact-form').addEventListener('submit', async function(e) {
-    e.preventDefault(); // Stops the page from refreshing when you click submit
+// 1. Import the Firebase functions
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // Grab the button so we can animate it during the sending process
-    const submitBtn = document.querySelector('.submit-btn');
-    const originalText = submitBtn.innerText;
-    submitBtn.innerText = 'INITIATING...';
+// 2. Paste your Firebase Config here
+const firebaseConfig = {
+  apiKey: "AIzaSyBJ1g5GiJzSSbtO60jYD7xh0ltXnN5sb7k",
+  authDomain: "logic-and-motion-portfol-aa23f.firebaseapp.com",
+  projectId: "logic-and-motion-portfol-aa23f",
+  storageBucket: "logic-and-motion-portfol-aa23f.firebasestorage.app",
+  messagingSenderId: "993993911153",
+  appId: "1:993993911153:web:45524fdb9b85197a7e64d0",
+  measurementId: "G-NJGW3RR16C"
+};
 
-    // Package the user's input into a neat object
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        message: document.getElementById('message').value
-    };
+// 3. Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-    try {
-        // Shoot the data over to your local Node.js server
-        const response = await fetch('/api/contact', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        });
+// 4. Update your Form Submission Logic
+const contactForm = document.getElementById('contact-form'); // Use your actual ID
 
-        if (response.ok) {
-            // SUCCESS FEEDBACK
-            submitBtn.innerText = 'CONNECTION ESTABLISHED';
-            submitBtn.style.backgroundColor = 'var(--text-light)';
-            submitBtn.style.color = 'var(--bg-dark)';
-            
-            // Clear the form fields
-            document.getElementById('contact-form').reset(); 
+contactForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
 
-            // Reset the button back to normal after 3 seconds
-            setTimeout(() => {
-                submitBtn.innerText = originalText;
-                submitBtn.style.backgroundColor = 'transparent';
-                submitBtn.style.color = 'var(--text-light)';
-            }, 3000);
-        } else {
-            submitBtn.innerText = 'CONNECTION FAILED';
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        submitBtn.innerText = 'SERVER OFFLINE';
-    }
-});  
+  try {
+    // This replaces your fetch('/api/contact') call
+    await addDoc(collection(db, "inquiries"), {
+      name: name,
+      email: email,
+      message: message,
+      timestamp: new Date()
+    });
+    alert("Message sent successfully to Firestore!");
+    contactForm.reset();
+  } catch (error) {
+    console.error("Error adding document: ", error);
+    alert("Error sending message.");
+  }
+});
